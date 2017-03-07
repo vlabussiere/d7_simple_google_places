@@ -1,0 +1,8 @@
+name = Simple Google Places
+description = Provide methods to display data from Google Places API
+core = 7.x
+
+files[]=simple_google_places.inc
+configure=admin/config/services/simple_google_places
+
+dependencies[] = libraries:libraries

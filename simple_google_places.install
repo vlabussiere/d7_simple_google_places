@@ -1,0 +1,38 @@
+<?php
+/**
+ * @file
+ * simple_google_places.install
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function simple_google_places_requirements($phase) {
+  $requirements = array();
+  // Ensure translations don't break during installation.
+  $t = get_t();
+
+  // Verify if librarie simple_google_places is installed.
+  $check = libraries_detect('simple_google_places');
+  $installed = (isset($check['installed']) && $check['installed']) ? TRUE : FALSE;
+
+  if ($phase == 'runtime') {
+    if (!$installed) {
+      $requirements['simple_google_places_librarie'] = array(
+        'title' => $t('Simple Google Place Librarie'),
+        'value' => $t('Not installed'),
+        'description' => $t('Install Simple Google Librarie in order to have more functionnalities'),
+        'severity' => REQUIREMENT_INFO
+      );
+    }
+  }
+  return $requirements;
+}
+/**
+ * Implements hook_uninstall().
+ */
+function simple_google_places_uninstall() {
+  variable_del('simple_google_places_api_key');
+  variable_del('simple_google_places_limit');
+  variable_del('simple_google_places_allowed_placeids');
+}
